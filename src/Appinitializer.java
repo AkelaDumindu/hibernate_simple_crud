@@ -1,29 +1,31 @@
+import entity.Book;
+import entity.Student;
 import org.hibernate.Session;
 
 
 public class Appinitializer {
 
     public static void main(String[] args) {
-
-            printMysqlVersion();
-            printMysqlDateAndTime();
-
-
-
-
+        Student student = new Student(1,"Akela Dumindu", 95);
+        saveStudent(student);
     }
 
-    private static void printMysqlDateAndTime(){
+    private static void saveStudent(Student student){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            Object result = session.createNativeQuery("SELECT NOW()").getSingleResult();
-            System.out.println(result);
+            //save->it return a serializable object, saved object primary key
+            //persist, saveOrUpdate
+
+            long primaryKey = (Long) session.save(student);
+            System.out.println(primaryKey);
         }
     }
 
-    private static void printMysqlVersion(){
+    private static void saveBook(Book book){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            Object result = session.createNativeQuery("SELECT VERSION()").getSingleResult();
-            System.out.println(result);
+
+            long primaryKey = (Long) session.save(book);
+            System.out.println(primaryKey);
         }
     }
+
 }
