@@ -1,12 +1,15 @@
 package entity;
 
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 //@Entity(name = "student_table")
 
 @Entity
 //@Table(name = "student_table")
+@DynamicUpdate //to update desire column
 public class Student {
 
     @Id

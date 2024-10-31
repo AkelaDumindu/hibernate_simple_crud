@@ -13,7 +13,8 @@ public class Appinitializer {
         Student student = new Student(1,"Akela Dumindu", 95);
 //        saveStudent(student);
 //        findStudent(1);
-        findAllStudent();
+//        findAllStudent();
+        updateStudentName("Dumindu", 1);
     }
 
     private static void saveStudent(Student student){
@@ -54,5 +55,21 @@ public class Appinitializer {
             System.out.println(students);
         }
     }
+
+    private static void updateStudentName(String name, long id){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            Student selectedStudent = session.find(Student.class, id);
+            if (selectedStudent!=null){
+                selectedStudent.setStudentName(name);
+                Transaction transaction = session.beginTransaction();
+                session.update(selectedStudent);
+                transaction.commit();
+            }else{
+                System.out.println("Can\'t find data");
+            }
+        }
+    }
+
+    
 
 }
