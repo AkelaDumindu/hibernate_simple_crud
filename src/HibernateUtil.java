@@ -1,3 +1,4 @@
+import entity.Student;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -20,7 +21,7 @@ public class HibernateUtil {
 
 
 
-                MetadataSources metadataSources = new MetadataSources(standardServiceRegistry);
+                MetadataSources metadataSources = new MetadataSources(standardServiceRegistry).addAnnotatedClass(Student.class);
                 Metadata metadata = metadataSources.getMetadataBuilder().build();
                 sessionFactory = metadata.getSessionFactoryBuilder().build();
 

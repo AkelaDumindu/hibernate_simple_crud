@@ -70,6 +70,18 @@ public class Appinitializer {
         }
     }
 
-    
+    private static void deleteStudent(long id){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            Student selectedStudent = session.find(Student.class, id);
+            if (selectedStudent!=null){
+
+                Transaction transaction = session.beginTransaction();
+                session.delete(selectedStudent);
+                transaction.commit();
+            }else{
+                System.out.println("Can\'t find data");
+            }
+        }
+    }
 
 }
