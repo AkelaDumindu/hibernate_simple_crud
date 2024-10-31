@@ -2,6 +2,9 @@ import entity.Book;
 import entity.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 
 public class Appinitializer {
@@ -9,7 +12,8 @@ public class Appinitializer {
     public static void main(String[] args) {
         Student student = new Student(1,"Akela Dumindu", 95);
 //        saveStudent(student);
-        findStudent(1);
+//        findStudent(1);
+        findAllStudent();
     }
 
     private static void saveStudent(Student student){
@@ -40,6 +44,14 @@ public class Appinitializer {
             }else {
                 System.out.println("Can\'t find data");
             }
+        }
+    }
+
+    private static void findAllStudent(){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query query = session.createQuery("FROM student");
+            List<Student> students = query.list();
+            System.out.println(students);
         }
     }
 
